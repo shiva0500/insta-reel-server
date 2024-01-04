@@ -1,20 +1,14 @@
-# Use the official Puppeteer image as the base image
-FROM ghcr.io/puppeteer/puppeteer:21.6.1@sha256:d41d0271c774019a9bf6a1bbec8071d067558815f047bc6f15c84ebab12f0391
+FROM ghcr.io/puppeteer/puppeteer:21.6.1
 
-# Set the working directory
-WORKDIR server/index
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
-# Copy only the package.json and package-lock.json files to the container
+WORKDIR /usr/src/app
+
+
 COPY package*.json ./
 
-# Install dependencies
-RUN npm i
-
-# Copy the rest of the application code
+RUN npm ci
 COPY . .
 
-# Expose the port your app will run on
-EXPOSE 3001
-
-# Start the app
-CMD ["npm", "start"]
+CMD [ "node", "index.js" ]
