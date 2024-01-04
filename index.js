@@ -51,7 +51,7 @@ app.post('/reel-download', async (req, res) => {
 const fetchProxyVideoUrl = async (originalUrl) => {
     try {
         const response = await axios.get(originalUrl, { responseType: 'stream' });
-        return `http://localhost:${port}/proxy-video?videoSrc=${encodeURIComponent(videoSrcDataUrl)}`;
+        return `https://insta-reel-server.onrender.com${port}/proxy-video?videoSrc=${encodeURIComponent(videoSrcDataUrl)}`;
     } catch (error) {
         console.error('Error fetching proxy video URL:', error);
         throw error;
